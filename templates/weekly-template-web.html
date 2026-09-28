@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taylor's Weekly Brief · {{DATE_MAIN}}</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#f4f6f9;
+  font-family:-apple-system,"Helvetica Neue",Arial,"PingFang TC","Microsoft JhengHei",sans-serif;
+  color:#1a1a1a;
+  padding:24px 16px 48px;
+}
+.card{
+  max-width:620px;margin:0 auto;background:#ffffff;
+  border-radius:12px;overflow:hidden;
+  box-shadow:0 2px 16px rgba(0,0,0,0.10);
+  margin-bottom:20px;
+  padding-bottom:20px;
+}
+.brand-header{background:#eef2f7;padding:20px 22px 16px;margin-bottom:24px;border-bottom:2px solid #c8d8ec;}
+.brand-row{display:flex;justify-content:space-between;align-items:flex-start;}
+.brand-name{font-size:22px;font-weight:600;color:#1a3a5c;}
+.brand-sub{font-size:10px;color:#4a6a8a;margin-top:4px;letter-spacing:0.04em;text-transform:uppercase;}
+.brand-date{text-align:right;flex-shrink:0;margin-left:12px;}
+.brand-date-main{font-size:12px;font-weight:500;color:#1a3a5c;white-space:nowrap;}
+.brand-date-sub{font-size:10px;color:#4a6a8a;margin-top:2px;white-space:nowrap;}
+.report-type-row{display:flex;justify-content:space-between;align-items:center;margin-top:14px;}
+.report-type{font-size:28px;font-weight:500;color:#1a1a1a;}
+.report-badge{font-size:11px;padding:5px 10px;border-radius:6px;font-weight:500;white-space:nowrap;}
+.badge-dn{background:#fde8e8;color:#a12020;}
+.badge-up{background:#e8f5ec;color:#1e7a3c;}
+.badge-warn{background:#fef3e2;color:#7a5000;}
+.badge-neu{background:#f0f4f9;color:#1a3a5c;}
+.page-label{font-size:9px;color:#4a6a8a;margin-top:3px;}
+.content{padding:0 22px;}
+.sec{margin-bottom:20px;}
+.sec-title{font-size:14px;font-weight:600;color:#1a3a5c;letter-spacing:.02em;margin-bottom:12px;border-left:3px solid #4a7ab5;padding-left:8px;}
+/* 市場概覽 */
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;}
+.mc{background:#f0f4f9;border-radius:8px;padding:12px 10px;}
+.mc-label{font-size:10px;color:#3a3a38;margin-bottom:4px;}
+.mc-val{font-size:22px;font-weight:600;color:#1a1a1a;line-height:1.1;white-space:nowrap;overflow:hidden;}
+.mc-chg{font-size:14px;margin-top:4px;}
+.up{color:#1e7a3c;}.dn{color:#a12020;}.neu{color:#3a3a38;}
+/* 新聞 */
+.news-item{padding:10px 0;border-bottom:0.5px solid rgba(0,0,0,0.10);}
+.news-item:last-child{border-bottom:none;}
+.news-title{font-size:16px;font-weight:700;color:#1a1a1a;line-height:1.5;}
+.news-body{font-size:12px;color:#3a3a38;line-height:1.7;margin-top:4px;}
+/* Badge */
+.badge{display:inline-block;font-size:10px;padding:2px 6px;border-radius:3px;font-weight:500;margin-left:4px;vertical-align:middle;}
+.b-bull{background:#e8f5ec;color:#1e7a3c;}
+.b-hot{background:#fde8e8;color:#a12020;}
+.b-warn{background:#fef3e2;color:#7a5000;}
+.b-info{background:#e6f1fb;color:#185fa5;}
+/* 板塊 */
+.sector-group-title{font-size:10px;font-weight:600;color:#5a5a57;margin-bottom:8px;margin-top:14px;}
+.sector-group-title:first-child{margin-top:0;}
+.sector-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.sector-label{width:60px;font-size:13px;font-weight:700;color:#1a1a1a;flex-shrink:0;}
+.bar-track{flex:1;height:14px;background:rgba(0,0,0,0.07);border-radius:7px;overflow:hidden;}
+.bar-up{height:100%;border-radius:7px;background:#1e7a3c;}
+.bar-dn{height:100%;border-radius:7px;background:#a12020;}
+.bar-neu{height:100%;border-radius:7px;background:#888888;}
+.bar-pct{width:52px;text-align:right;font-size:18px;font-weight:600;}
+.divider{border:none;border-top:0.5px solid rgba(0,0,0,0.08);margin:12px 0;}
+/* 宏觀 */
+.signal-row{display:flex;align-items:flex-start;justify-content:space-between;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.10);font-size:15px;color:#1a1a1a;}
+.signal-row:last-child{border-bottom:none;}
+.signal-row .badge{white-space:nowrap;flex-shrink:0;margin-top:2px;}
+/* 情緒 */
+.sent-bar{height:10px;border-radius:5px;background:rgba(0,0,0,0.08);margin:5px 0;overflow:hidden;}
+.sent-fill{height:100%;border-radius:5px;}
+.sent-label{font-size:14px;font-weight:500;color:#1a1a1a;margin-bottom:2px;display:flex;justify-content:space-between;align-items:baseline;}
+.sent-val{font-size:16px;font-weight:700;}
+.sent-desc{font-size:12px;color:#3a3a38;}
+.sent-item{margin-bottom:12px;}
+/* 日程 */
+.preview-item{padding:8px 12px;background:#f0f4f9;border-radius:6px;margin-bottom:5px;font-size:14px;color:#1a1a1a;line-height:1.5;}
+.preview-item:empty{display:none;}
+.risk-box{margin-top:8px;padding:10px 14px;background:#fef3e2;border-radius:6px;font-size:13px;font-weight:700;color:#7a5000;line-height:1.6;}
+.risk-title{display:block;font-size:17px;font-weight:700;color:#c17000;margin-bottom:6px;}
+.risk-list{margin:4px 0 0 0;padding-left:18px;line-height:1.7;font-size:15px;}
+/* Taylor's Take */
+.take-content{font-size:14px;color:#1a1a1a;line-height:1.8;}
+.take-point{margin-bottom:6px;padding-left:14px;position:relative;font-weight:700;}
+.take-point::before{content:"•";position:absolute;left:0;color:#c17000;font-weight:700;}
+.take-conclusion{margin-top:10px;padding:10px 14px;background:#f0f4f9;border-radius:6px;font-size:15px;font-weight:800;color:#185fa5;line-height:1.6;}
+/* 市場觀察清單 */
+.track-row{display:flex;align-items:center;padding:9px 0;border-bottom:0.5px solid rgba(0,0,0,0.10);}
+.track-row:last-child{border-bottom:none;}
+.track-ticker{width:52px;font-size:13px;font-weight:700;color:#1a1a1a;flex-shrink:0;}
+.track-name{flex:1;font-size:13px;color:#3a3a38;}
+.track-price{font-size:15px;font-weight:600;color:#1a1a1a;margin-right:10px;text-align:right;min-width:62px;}
+.track-chg{font-size:14px;font-weight:600;min-width:68px;text-align:right;white-space:nowrap;}
+.track-note{font-size:11px;color:#3a3a38;padding:2px 0 8px 52px;line-height:1.6;}
+.track-etf-label{font-size:9px;color:#4a6a8a;margin-left:4px;font-weight:400;background:#f0f4f9;padding:1px 4px;border-radius:3px;}
+/* Footer */
+.footer{border-top:0.5px solid rgba(0,0,0,0.10);padding-top:10px;margin:10px 22px 20px;font-size:9px;color:#4a6a8a;display:flex;flex-direction:column;gap:2px;}
+</style>
+</head>
+<body>
+
+<!-- ===== Card 1: 市場概覽 + 新聞 + 板塊 ===== -->
+<div class="card">
+  <div class="brand-header">
+    <div class="brand-row">
+      <div class="brand-name">Taylor's Weekly Brief</div>
+      <div class="brand-date">
+        <div class="brand-date-sub">{{DATE_SUB}}</div>
+      </div>
+    </div>
+    <div class="report-type-row">
+      <div class="report-type">{{REPORT_LABEL}}</div>
+      <div class="report-badge {{BADGE_CLASS}}">{{BADGE_TEXT}}</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- Taylor 的看法（置頂） -->
+    <div class="sec">
+      <div class="sec-title">Taylor 的看法</div>
+      <div class="take-content">{{TAYLORS_TAKE}}</div>
+    </div>
+
+    <!-- 1 · 市場概覽 -->
+    <div class="sec">
+      <div class="sec-title">1 · 市場概覽</div>
+      <div class="grid3">
+        <div class="mc"><div class="mc-label">S&amp;P 500</div><div class="mc-val">{{SP500}}</div><div class="mc-chg {{SP500_DIR}}">{{SP500_CHG}} 週</div></div>
+        <div class="mc"><div class="mc-label">Nasdaq</div><div class="mc-val">{{NDX}}</div><div class="mc-chg {{NDX_DIR}}">{{NDX_CHG}} 週</div></div>
+        <div class="mc"><div class="mc-label">日經 225</div><div class="mc-val">{{NKY}}</div><div class="mc-chg {{NKY_DIR}}">{{NKY_CHG}} 週</div></div>
+        <div class="mc"><div class="mc-label">{{OIL_LABEL}}</div><div class="mc-val">{{OIL}}</div><div class="mc-chg {{OIL_DIR}}">{{OIL_CHG}} 週</div></div>
+        <div class="mc"><div class="mc-label">黃金</div><div class="mc-val">{{GOLD}}</div><div class="mc-chg {{GOLD_DIR}}">{{GOLD_CHG}} 週</div></div>
+        <div class="mc"><div class="mc-label">VIX</div><div class="mc-val">{{VIX}}</div><div class="mc-chg {{VIX_NOTE}}">{{VIX_NOTE}}</div></div>
+      </div>
+    </div>
+
+    <!-- 2 · 重大新聞 -->
+    <div class="sec">
+      <div class="sec-title">2 · 重大新聞</div>
+      <div class="news-item">
+        <div class="news-title">{{NEWS1_TITLE}}<span class="badge {{NEWS1_BADGE_CLASS}}">{{NEWS1_BADGE}}</span></div>
+        <div class="news-body">{{NEWS1_BODY}}</div>
+      </div>
+      <div class="news-item">
+        <div class="news-title">{{NEWS2_TITLE}}<span class="badge {{NEWS2_BADGE_CLASS}}">{{NEWS2_BADGE}}</span></div>
+        <div class="news-body">{{NEWS2_BODY}}</div>
+      </div>
+      <div class="news-item">
+        <div class="news-title">{{NEWS3_TITLE}}<span class="badge {{NEWS3_BADGE_CLASS}}">{{NEWS3_BADGE}}</span></div>
+        <div class="news-body">{{NEWS3_BODY}}</div>
+      </div>
+      <div class="news-item">
+        <div class="news-title">{{NEWS4_TITLE}}<span class="badge {{NEWS4_BADGE_CLASS}}">{{NEWS4_BADGE}}</span></div>
+        <div class="news-body">{{NEWS4_BODY}}</div>
+      </div>
+    </div>
+
+    <!-- 3 · 板塊熱力圖 -->
+    <div class="sec">
+      <div class="sec-title">3 · 板塊熱力圖（{{HEATMAP_PERIOD}}漲跌幅前三）</div>
+      <div class="sector-group-title">▲ 漲幅前三</div>
+      <div class="sector-row">
+        <div class="sector-label">{{UP1_NAME}}</div>
+        <div class="bar-track"><div class="{{UP1_BAR_CLASS}}" style="width:{{UP1_BAR}}%"></div></div>
+        <div class="bar-pct {{UP1_PCT_CLASS}}">{{UP1_PCT}}</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-label">{{UP2_NAME}}</div>
+        <div class="bar-track"><div class="{{UP2_BAR_CLASS}}" style="width:{{UP2_BAR}}%"></div></div>
+        <div class="bar-pct {{UP2_PCT_CLASS}}">{{UP2_PCT}}</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-label">{{UP3_NAME}}</div>
+        <div class="bar-track"><div class="{{UP3_BAR_CLASS}}" style="width:{{UP3_BAR}}%"></div></div>
+        <div class="bar-pct {{UP3_PCT_CLASS}}">{{UP3_PCT}}</div>
+      </div>
+      <hr class="divider">
+      <div class="sector-group-title">▼ 跌幅前三</div>
+      <div class="sector-row">
+        <div class="sector-label">{{DN1_NAME}}</div>
+        <div class="bar-track"><div class="bar-dn" style="width:{{DN1_BAR}}%"></div></div>
+        <div class="bar-pct dn">{{DN1_PCT}}</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-label">{{DN2_NAME}}</div>
+        <div class="bar-track"><div class="bar-dn" style="width:{{DN2_BAR}}%"></div></div>
+        <div class="bar-pct dn">{{DN2_PCT}}</div>
+      </div>
+      <div class="sector-row">
+        <div class="sector-label">{{DN3_NAME}}</div>
+        <div class="bar-track"><div class="bar-dn" style="width:{{DN3_BAR}}%"></div></div>
+        <div class="bar-pct dn">{{DN3_PCT}}</div>
+      </div>
+      <div style="font-size:9px;color:#4a6a8a;margin-top:8px;">以 SPDR 板塊 ETF 週報酬為基準</div>
+    </div>
+
+  </div>
+  <div class="content">
+
+    <!-- 4 · 散戶情緒 -->
+    <div class="sec">
+      <div class="sec-title">4 · 散戶情緒掃描</div>
+      {{SENTIMENT_ITEMS}}
+    </div>
+
+    <!-- 5 · 美股觀察清單 -->
+    <div class="sec">
+      <div class="sec-title">5 · 美股觀察清單（上週漲跌幅）</div>
+      <p style="font-size:11px;color:#4a6a8a;">Watchlist items are included for market observation and workflow demonstration only and do not constitute investment recommendations.</p>
+      {{TRACKED_STOCKS_HTML}}
+    </div>
+
+    <!-- 6 · 短期重要日程 -->
+    <div class="sec">
+      <div class="sec-title">6 · 短期重要日程（{{NEXT_WEEK_RANGE}}）</div>
+      <div class="preview-item">{{CAL1}}</div>
+      <div class="preview-item">{{CAL2}}</div>
+      <div class="preview-item">{{CAL3}}</div>
+      <div class="preview-item">{{CAL4}}</div>
+      <div class="preview-item">{{CAL5}}</div>
+      <div class="preview-item">{{CAL6}}</div>
+    </div>
+
+  </div><!-- end content -->
+  <div class="footer">
+    <span>Taylor's Weekly Brief · {{FOOTER_DATE}} · 免責：本報告僅供參考，不構成投資建議</span>
+    <span>This is a personal project for informational and educational purposes only. It is not investment advice and is not affiliated with, sponsored by, or endorsed by my employer.</span>
+    <span>Edited by Taylor · AI-assisted workflow</span>
+  </div>
+</div>
+
+</body>
+</html>

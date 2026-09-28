@@ -1,0 +1,30 @@
+name: Portfolio demo and privacy checks
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Regenerate the synthetic demo
+        run: python src/build_report.py examples/sample_week.json
+      - name: Verify generated HTML
+        run: |
+          test -s examples/sample_output.html
+          python -c "from pathlib import Path; import re; p=Path('examples/sample_output.html').read_text(encoding='utf-8'); assert not re.search(r'\{\{[^}]+\}\}', p), 'unresolved template placeholder'; assert 'SYNTHETIC DEMO' in p; assert '<script' not in p.lower()"
+      - name: Scan repository for accidental disclosures
+        run: python scripts/check_public.py

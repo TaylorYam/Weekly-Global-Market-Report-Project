@@ -1,0 +1,31 @@
+{
+  "meta": {
+    "demo": true,
+    "report_date": "2020-01-06",
+    "date_main": "Synthetic demo / 模擬示範",
+    "date_sub": "示範週｜所有數據與事件均為人工合成",
+    "badge_class": "badge-up",
+    "badge_text": "DEMO — not real market data"
+  },
+  "market": {
+    "DEMO_SP": {"label": "Synthetic index A", "curr_close": 1000, "pct_change": 1, "tmpl_val": "SP500", "tmpl_chg": "SP500_CHG", "tmpl_dir": "SP500_DIR"},
+    "DEMO_NQ": {"label": "Synthetic index B", "curr_close": 2000, "pct_change": 2, "tmpl_val": "NDX", "tmpl_chg": "NDX_CHG", "tmpl_dir": "NDX_DIR"},
+    "DEMO_JP": {"label": "Synthetic index C", "curr_close": 3000, "pct_change": -1, "tmpl_val": "NKY", "tmpl_chg": "NKY_CHG", "tmpl_dir": "NKY_DIR"},
+    "CL=F": {"label": "Synthetic oil", "curr_close": 50, "pct_change": -2, "tmpl_val": "OIL", "tmpl_chg": "OIL_CHG", "tmpl_dir": "OIL_DIR"},
+    "GC=F": {"label": "Synthetic gold", "curr_close": 1000, "pct_change": 1, "tmpl_val": "GOLD", "tmpl_chg": "GOLD_CHG", "tmpl_dir": "GOLD_DIR"},
+    "^VIX": {"label": "Synthetic volatility", "curr_close": 18, "pct_change": 0, "tmpl_val": "VIX", "tmpl_chg": "VIX_NOTE", "tmpl_dir": "VIX_NOTE"}
+  },
+  "vix_note": "模擬值",
+  "sectors_ranked": {
+    "top3_up": [{"name_zh": "模擬板塊 A", "pct_change": 3}, {"name_zh": "模擬板塊 B", "pct_change": 2}, {"name_zh": "模擬板塊 C", "pct_change": 1}],
+    "top3_dn": [{"name_zh": "模擬板塊 D", "pct_change": -3}, {"name_zh": "模擬板塊 E", "pct_change": -2}, {"name_zh": "模擬板塊 F", "pct_change": -1}]
+  },
+  "news": [
+    {"title": "示範新聞：資料來源查核", "body": "這是人工撰寫的虛構新聞，用來展示摘要與版型。實際流程中，AI 整理候選與來源，由人工核對事件日期、數字及原文，再決定是否納入報告。這段文字不描述任何真實公司或市場事件。", "badge_class": "b-info", "badge_text": "模擬"},
+    {"title": "示範新聞：合併相關主題", "body": "這是第二則合成範例，展示如何把同一主題整理為一則摘要。人工編輯確認每個敘述都有依據，並將已知事實與不確定性分開。範例不提供個股交易方向。", "badge_class": "b-info", "badge_text": "模擬"}
+  ],
+  "sentiment": [{"label": "Synthetic sentiment / 模擬情緒", "value": "50（模擬）", "pct": 50, "color": "#888888", "desc": "僅示範顯示方式，非 CNN 或其他機構實際數據。"}],
+  "tracked_stocks": [{"ticker": "DEMO-A", "name": "Fictional company / 虛構企業", "is_etf": false, "curr_close": 100, "pct_change": 1, "news_note": "", "news_date": ""}],
+  "calendar": {"next_week_range": "模擬日程", "items": ["示範項目：人工校對與版面檢查（非真實市場日程）"], "risk_note": ""},
+  "sources": [{"id": "synthetic-editorial-example", "url": null, "verification_status": "synthetic", "note": "All events, prices and watchlist items are invented for an offline workflow demonstration; no external source is claimed."}]
+}

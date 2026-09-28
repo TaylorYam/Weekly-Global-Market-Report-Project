@@ -1,0 +1,2 @@
+# Optional dependency for online market-data collection. The offline demo uses only Python's standard library.
+yfinance>=0.2.36
