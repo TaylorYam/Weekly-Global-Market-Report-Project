@@ -20,4 +20,6 @@ Use the Monday-reader freshness rule: weekend and Friday-after-close events rece
 
 ## Portfolio demo
 
-Run `python src/build_report.py examples/sample_week.json`. Keep all demonstration values fictional. The demo writes `examples/sample_output.html`; it has no network, analytics or credential dependency.
+Run `python src/build_report.py examples/sample_week.json`. Keep this generated demo's values fictional. The demo writes `examples/sample_output.html`; it has no network, analytics or credential dependency.
+
+The separately labeled `examples/historical/20260914.html` is an owner-approved historical output, not synthetic input. Preserve its data, securities, views and source limitations. Document any approved safety edits in `examples/historical/README.md`. Validate the fixed snapshot with `python scripts/check_historical.py`; never regenerate it from live data.

@@ -2,6 +2,24 @@
 
 An AI-assisted market intelligence and publishing workflow combining Python market-data processing, AI-supported news research, human editorial judgment, source verification, structured report generation, and human-in-the-loop approval.
 
+## Explore the Project
+
+### Historical Example
+
+[September 14, 2026 report](examples/historical/20260914.html) — a real report produced using the recurring workflow. This example demonstrates the real-world output of the workflow. It has been reviewed for portfolio publication and stripped of production analytics; the review found no private operational details in its editorial content. The original market figures, securities, news summaries and views are preserved as historical material, not current guidance.
+
+Download the HTML and open it locally to view the report; GitHub displays its source. [Snapshot notes](examples/historical/README.md) document the limited edits and source limitations.
+
+### Synthetic Demo
+
+With Python 3.11 or newer, run:
+
+```bash
+python src/build_report.py examples/sample_week.json
+```
+
+Open [examples/sample_output.html](examples/sample_output.html) locally. This separate, fictional example demonstrates reproducibility without credentials, network access or historical production content. No package installation is needed for this command.
+
 ## What This Project Demonstrates
 
 - Python-based market data processing and report rendering
@@ -34,16 +52,6 @@ flowchart LR
 
 AI does not independently choose what to publish. Human review remains necessary because the software does not fact-check source claims.
 
-## Explore in Five Minutes
-
-Python 3.11 or newer; no package installation is needed for the demo.
-
-```bash
-python src/build_report.py examples/sample_week.json
-```
-
-The command regenerates `examples/sample_output.html`. Open that file in a browser. All prices, events, sentiment values, sectors and the fictional watchlist are synthetic. The example renderer makes no network requests and does not write into an operational archive.
-
 ## Architecture and Project Structure
 
 ```text
@@ -51,14 +59,20 @@ AGENTS.md / CLAUDE.md       Short assistant entry points
 README.md                   Project overview and demo
 PUBLIC_READINESS_AUDIT.md   Scope and validation notes
 docs/                        Editorial method and operating guide
-examples/                    Synthetic JSON input and generated HTML
+examples/
+  historical/
+    20260914.html             Fixed historical output
+    README.md                 Provenance and documented edits
+  sample_week.json            Synthetic reproducible input
+  sample_output.html          Generated synthetic demonstration
 src/config.py                Generic market identifiers and watchlist
 src/fetch_data.py            Optional online data-collection example
 src/build_report.py          JSON-to-HTML renderer
 templates/                   Portfolio-safe web template
 scripts/check_public.py      Privacy and identifier checks
+scripts/check_historical.py  Fixed snapshot integrity and HTML checks
 .github/workflows/ci.yml     Demo and privacy checks on three Python versions
-requirements.txt             Optional online data/image dependencies
+requirements.txt             Optional online market-data dependency
 ```
 
 ## Editorial Method
@@ -69,7 +83,7 @@ The assistant can organize 10–15 candidates for a human editor to select from.
 
 ## Source Verification
 
-AI-assisted discovery is a starting point. A human checks the original publication, event date, figures and whether the source supports each statement. Primary materials are preferred. The example uses fictional material and makes no claim to real sources.
+AI-assisted discovery is a starting point. A human checks the original publication, event date, figures and whether the source supports each statement. Primary materials are preferred. The synthetic demo makes no claim to real sources. The historical example preserves an original output; news-source URLs were not stored in its HTML or companion data, so it is not presented as a newly reconstructed source-audit dataset. Existing quote-page links are preserved and are not news citations.
 
 ## Limitations
 

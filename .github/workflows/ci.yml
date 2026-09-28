@@ -28,3 +28,5 @@ jobs:
           python -c "from pathlib import Path; import re; p=Path('examples/sample_output.html').read_text(encoding='utf-8'); assert not re.search(r'\{\{[^}]+\}\}', p), 'unresolved template placeholder'; assert 'SYNTHETIC DEMO' in p; assert '<script' not in p.lower()"
       - name: Scan repository for accidental disclosures
         run: python scripts/check_public.py
+      - name: Verify the fixed historical example
+        run: python scripts/check_historical.py
