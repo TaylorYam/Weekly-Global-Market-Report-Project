@@ -1,6 +1,7 @@
 """Validate the reviewed, fixed historical snapshot without fetching market data."""
 
 from hashlib import sha256
+from html import unescape
 from html.parser import HTMLParser
 from pathlib import Path
 import re
@@ -8,7 +9,7 @@ import re
 ROOT = Path(__file__).resolve().parents[1]
 SNAPSHOT = ROOT / "examples" / "historical" / "20260914.html"
 # UTF-8 text with normalized line endings; updating this requires a reviewed edit.
-EXPECTED_SHA256 = "d0d038c8f090846eb2670ae90038f7c83527922369fc7f3f7cc9b5095cf9f11c"
+EXPECTED_SHA256 = "ba88588e827d8450b7fe39372becda0ea0356ef612c81ce4bbd50b63e09b174b"
 
 
 class PassiveHTML(HTMLParser):
@@ -36,12 +37,18 @@ def main():
         "Not investment advice.",
         "2026年9月14日",
         "Market Watchlist",
+        "Edited by Taylor · AI-assisted workflow",
     )
     if any(marker not in text for marker in required):
         raise ValueError("Historical date, banner or disclaimer missing")
     forbidden = r"<\s*script\b|G-[A-Z0-9]{10,}|netlify[.]app|googletagmanager|google-analytics|\{\{[^}]+\}\}"
     if re.search(forbidden, text, re.I):
         raise ValueError("Script, tracking, publishing endpoint or placeholder found")
+    visible = unescape(re.sub(r"<[^>]+>", "", text))
+    if "代表性公司包括 CRWD、PANW、FTNT" not in visible or "可留意 CRWD" in visible or "by Claude" in visible:
+        raise ValueError("Approved neutral wording or attribution is incorrect")
+    if text.count('class="sent-item"') != 2:
+        raise ValueError("Expected only the two meaningful sentiment rows")
     PassiveHTML().feed(text)
     if sha256(text.encode("utf-8")).hexdigest() != EXPECTED_SHA256:
         raise ValueError("Fixed snapshot changed; inspect and document edits before updating its checksum")

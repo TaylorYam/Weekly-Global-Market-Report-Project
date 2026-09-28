@@ -4,9 +4,15 @@ An AI-assisted market intelligence and publishing workflow combining Python mark
 
 ## Explore the Project
 
+### Live Portfolio Demo
+
+[Open the live portfolio](https://tayloryam.github.io/Weekly-Global-Market-Report-Project/) for direct access to the reviewed historical report and reproducible synthetic demo.
+
+The historical example shows real-world past output; the synthetic demo shows the reproducible engineering structure. GitHub Pages publishes only these two reports and the landing page.
+
 ### Historical Example
 
-[September 14, 2026 report](examples/historical/20260914.html) — a real report produced using the recurring workflow. This example demonstrates the real-world output of the workflow. It has been reviewed for portfolio publication and stripped of production analytics; the review found no private operational details in its editorial content. The original market figures, securities, news summaries and views are preserved as historical material, not current guidance.
+[September 14, 2026 report](examples/historical/20260914.html) — a real report produced using the recurring workflow. This example demonstrates the real-world output of the workflow. It has been reviewed for portfolio publication and stripped of production analytics; the review found no private operational details in its editorial content. Original market figures, securities, events and views are preserved as historical material, with the owner's documented neutral wording and presentation edits.
 
 Download the HTML and open it locally to view the report; GitHub displays its source. [Snapshot notes](examples/historical/README.md) document the limited edits and source limitations.
 
@@ -71,7 +77,10 @@ src/build_report.py          JSON-to-HTML renderer
 templates/                   Portfolio-safe web template
 scripts/check_public.py      Privacy and identifier checks
 scripts/check_historical.py  Fixed snapshot integrity and HTML checks
+scripts/build_pages.py       Assemble only the three approved pages
+pages/index.html             Portfolio landing-page source
 .github/workflows/ci.yml     Demo and privacy checks on three Python versions
+.github/workflows/pages.yml  Manually triggered GitHub Pages publishing
 requirements.txt             Optional online market-data dependency
 ```
 
@@ -88,7 +97,7 @@ AI-assisted discovery is a starting point. A human checks the original publicati
 ## Limitations
 
 - The optional fetcher needs an internet connection and a third-party market-data package. Provider adjustments, market holidays, time zones and futures rolls require review.
-- This portfolio edition does not include production publishing credentials or infrastructure.
+- This portfolio edition publishes only its approved examples through GitHub Pages. It contains no production publishing credentials or infrastructure. Pages is manually triggered after human approval and uses GitHub's built-in deployment permissions, with no custom secrets.
 - The renderer accepts trusted editorial HTML; it is not a sanitizer for untrusted input.
 - The report layout has fixed market display slots. Changing a data selection does not automatically reconfigure the template.
 - No measured time savings, predictive accuracy or investment performance claims are made.

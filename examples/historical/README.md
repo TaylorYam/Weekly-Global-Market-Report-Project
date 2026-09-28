@@ -7,10 +7,16 @@
 - Removed the analytics comment and both analytics script elements.
 - Added the prominent historical-example notice and an educational-use disclaimer near the top.
 - Renamed the watchlist section and its two code comments to Market Watchlist. No securities were replaced.
-- Added the portfolio disclaimer to the footer, retaining the original date, disclaimer and authoring attribution.
+- Added the portfolio disclaimer to the footer, retaining the original date and disclaimer.
 - Removed trailing whitespace on an empty line; visible report content is unchanged.
 
-All original market figures, news summaries, calendar entries and Taylor's Take remain unchanged. The original layout and its empty sentiment rows are preserved. The instruction-like watchlist heading was neutralized; the historical news observation mentioning CRWD, PANW and FTNT remains intact. No individualized entry, exit, position-sizing or leverage instruction was identified in this issue.
+Final owner-approved portfolio edits:
+
+1. Rephrased 「可留意 CRWD、PANW、FTNT」 to 「代表性公司包括 CRWD、PANW、FTNT」. Existing Yahoo Finance links remain unchanged; no other wording in that news item changed.
+2. Changed footer attribution from `by Claude` to `Edited by Taylor · AI-assisted workflow`.
+3. Removed two empty rendered sentiment placeholders with blank labels, zero values and blank descriptions. The CNN Fear & Greed and VIX items are unchanged.
+
+No market prices were changed, no securities were removed, no historical market conclusion was changed, no news event was rewritten beyond the approved neutral wording, and no calendar item was changed. The remaining original layout is preserved. No individualized entry, exit, position-sizing or leverage instruction was identified in this issue.
 
 ## Sources and interpretation
 

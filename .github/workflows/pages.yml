@@ -1,0 +1,48 @@
+name: Publish portfolio Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    if: github.ref == 'refs/heads/main' && github.event.repository.private == false
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+      - name: Regenerate synthetic demo
+        run: python src/build_report.py examples/sample_week.json
+      - name: Scan repository for accidental disclosures
+        run: python scripts/check_public.py
+      - name: Validate fixed historical snapshot
+        run: python scripts/check_historical.py
+      - name: Validate synthetic output
+        run: |
+          python -c "from pathlib import Path; import re; p=Path('examples/sample_output.html').read_text(encoding='utf-8'); assert not re.search(r'\{\{[^}]+\}\}', p); assert 'SYNTHETIC DEMO' in p; assert '<script' not in p.lower()"
+      - name: Assemble approved pages
+        run: python scripts/build_pages.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: site
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy portfolio
+        id: deployment
+        uses: actions/deploy-pages@v4

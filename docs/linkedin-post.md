@@ -14,11 +14,13 @@ Designed and built Taylor’s Weekly Brief, an AI-assisted market intelligence w
 
 Claude Code and Codex assist research, organization, drafting, and development, while news selection, market interpretation, source verification, and final publication remain human-controlled.
 
-The portfolio edition includes both a reviewed historical report and a credential-free synthetic demonstration, showing the workflow’s real-world output as well as its reproducible engineering structure.
+The portfolio edition includes a reviewed historical report, a reproducible synthetic demonstration, and a live GitHub Pages showcase, illustrating both real-world output and the underlying engineering workflow.
 
 ## Featured section
 
-Explore a human-reviewed market-information workflow built with Python and AI assistance. Includes one reviewed historical report, a reproducible synthetic demo, source-verification guidance, and the editorial process.
+Explore an AI-assisted, human-reviewed market intelligence workflow built with Python. Includes a real historical report, reproducible synthetic demo, source-verification rules, CI validation, and a live portfolio site.
+
+Live portfolio: https://tayloryam.github.io/Weekly-Global-Market-Report-Project/
 
 ## Disclaimer
 
