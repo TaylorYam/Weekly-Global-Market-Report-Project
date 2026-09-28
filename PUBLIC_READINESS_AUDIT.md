@@ -12,7 +12,7 @@ This repository is a fresh portfolio project with independently initialized Git 
 
 ## Validation
 
-The CI workflow regenerates the HTML example, verifies that expected placeholders have been replaced, and runs the public-content scanner on Python 3.11, 3.12 and 3.13. Before the first push, local validation on Python 3.13.2 passed: deterministic offline regeneration, placeholder/script/external-URL checks, privacy scanning, and a synthetic secret-detection probe whose value was redacted. The GitHub Actions matrix is pending its first remote run.
+The CI workflow regenerates the HTML example, verifies that expected placeholders have been replaced, and runs the public-content scanner on Python 3.11, 3.12 and 3.13. Local validation on Python 3.13.2 passed: deterministic offline regeneration, placeholder/script/external-URL checks, privacy scanning, and a synthetic credential-detection probe whose value was redacted. GitHub Actions run 36433975793 passed all three Python versions, including demo generation, placeholder/script checks and the public-content scan.
 
 The privacy scanner reports file paths and categories without printing matched values. It detects common credential formats, private-key blocks, personal filesystem paths, email addresses, and selected production identifiers. It is a heuristic check, not a security certification.
 
