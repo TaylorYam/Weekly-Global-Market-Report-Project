@@ -61,7 +61,7 @@ def main():
             "",
         )
         for category, pattern in CHECKS.items():
-            if pattern.search(text) or (category == "personal filesystem path" and pattern.search(str(path))):
+            if pattern.search(text) or (category == "personal filesystem path" and pattern.search(relative)):
                 findings.append((relative, category))
 
     if findings:
